@@ -42,6 +42,7 @@ public class Controller {
         this.service = service;
     }
 
+    //GET method
     @GetMapping("/goals")
     public ResponseEntity<Object> getTotalGoals() {
         log.info("Request received for fetching total goals");
@@ -71,6 +72,7 @@ public class Controller {
 
     @Operation(summary = "New Goal Created", description = "Returns object after creating a goal")
 
+    //POST method
     @PostMapping(value = "/goals")
     public ResponseEntity<Object>  createNewGoal(@RequestBody goals goal) {
         log.info("Request received for creating new goal with goalId "+goal.getGoalId());
@@ -91,8 +93,8 @@ public class Controller {
             @ApiResponse(responseCode = "404", description = "Goal not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception")})
 
+    //PUT method
     @RequestMapping(value = "/goals/{GoalId}", method = RequestMethod.PUT)
-
     public ResponseEntity<Object>  updateGoal(@RequestBody goals goal, @PathVariable String GoalId){
         log.info("Request received for updating goal of "+GoalId);
         if(service.get(GoalId)!=null) {
@@ -106,8 +108,9 @@ public class Controller {
     }
 
     @Operation(summary = "Delete a content of Goal by GoalId")
-    @RequestMapping(value = "/goals/{GoalId}",method = RequestMethod.DELETE)
 
+    //DELETE method
+    @RequestMapping(value = "/goals/{GoalId}",method = RequestMethod.DELETE)
     public ResponseEntity<Object>  deleteGoal(@PathVariable String GoalId){
         log.info("Request received to delete goal");
         if(service.get(GoalId)!=null) {
